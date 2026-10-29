@@ -1,12 +1,12 @@
 # Review Room · Review Sentiment Analyzer
 
-A local web app that compares a trained TF-IDF + Logistic Regression classifier with a pretrained Hugging Face transformer. Enter an English movie review to see both predictions, then inspect the measured evaluation results and training evidence.
+A web app that compares a trained TF-IDF + Logistic Regression classifier with a pretrained Hugging Face transformer. Enter an English movie review to see both predictions, then inspect the measured evaluation results and training evidence. The serving app uses a compact compressed ONNX export of the same pinned transformer checkpoint.
 
 The project follows the interview task: a classical baseline, a transformer comparison, accuracy/precision/recall/F1 and confusion matrices, and an app that shows sentiment with confidence from both models.
 
 ## Measured results
 
-Both models were evaluated on all 25,000 official IMDb test reviews. Precision, recall and F1 use the positive class. Values below are percentages, rounded to two decimal places from [the saved report](reports/metrics.json).
+Both original models were evaluated on all 25,000 official IMDb test reviews. These scores measure the original PyTorch transformer, not the compressed ONNX export used for live predictions. Quantization can change probabilities and labels; the export has a separate sample comparison in [its manifest](models/onnx/manifest.json), not a full test-set evaluation. Precision, recall and F1 use the positive class. Values below are percentages, rounded to two decimal places from [the saved report](reports/metrics.json).
 
 | Model | Accuracy | Precision | Recall | F1 |
 |---|---:|---:|---:|---:|
@@ -23,26 +23,41 @@ The selected classical model combines word and character TF-IDF with Logistic Re
 
 ## Run locally
 
-Use Python 3.13. The first transformer download needs internet access. A Hugging Face account is not required to download public repositories.
+Use Python 3.13. Both serving models are included in Git; inference needs no model download or external inference service.
 
 ```powershell
 py -3.13 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe training/download_transformer.py
 .\.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000
 ```
 
 Open [http://127.0.0.1:8000](http://127.0.0.1:8000). Keep the terminal running while using the app. The app performs inference locally. Submitted review text is not sent to an inference service.
 
-The repository includes the fitted classical model. The transformer downloader fetches the upstream checkpoint revision recorded in `reports/metrics.json`. Its weights are excluded from Git because of their size. The app requires both local model directories.
+The repository includes the fitted classical model and `models/onnx/` serving artifacts. The original PyTorch checkpoint remains excluded from Git. To reproduce training or regenerate the ONNX export, first install the separate training dependencies and download that checkpoint:
 
-For a compatible NVIDIA GPU, install the CUDA build before training or inference:
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements-training.txt
+.\.venv\Scripts\python.exe training/download_transformer.py
+.\.venv\Scripts\python.exe training/export_onnx.py
+```
+
+`training/export_onnx.py` checks the exported model against the original on the existing paired examples and five additional inputs, then records the model hash, size, label agreement, and probability differences. It does not replace the saved benchmark scores. Tests need `requirements-dev.txt` and run with `python -m unittest discover -s tests -v`.
+
+## Deploy on Vercel
+
+Import this repository with the repository root as the project directory and the FastAPI framework preset. Vercel discovers `app/main.py:app`; `.python-version` selects Python 3.13. Keep the default install command so only `requirements.txt` is installed. Do not install `requirements-training.txt` in the deployment or set a training/export build command.
+
+The previous deployment installed PyTorch, CUDA libraries and dataset/training tools into the function, exceeding Vercel's 500 MB limit. The serving requirements use CPU ONNX Runtime and the standalone tokenizer instead. The compressed ONNX transformer is committed as a regular Git file, so neither Git LFS nor runtime downloads are needed. `vercel.json` excludes original weights, training sources, datasets and bulky report evidence from the function while keeping the interface, serving models and displayed reports. `.vercelignore` applies the same exclusions to CLI uploads.
+
+Live inference runs on the Vercel server's CPU. Submitted text is sent to that server. The original GPU experiment remains reproducible through `requirements-training.txt`; the serving app no longer requires PyTorch or CUDA.
+
+For a compatible NVIDIA GPU, install the CUDA build before running the original training/evaluation experiment:
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install --force-reinstall torch==2.9.1 --index-url https://download.pytorch.org/whl/cu128
 ```
 
-CPU execution remains supported. GPU availability depends on your driver and hardware.
+CPU execution of the original experiment remains supported. GPU availability depends on your driver and hardware.
 
 Training artifacts and evaluation results must exist before both predictions and reports are available. To reproduce the experiment:
 
@@ -62,7 +77,7 @@ The source is [stanfordnlp/imdb on Hugging Face](https://huggingface.co/datasets
 
 The upstream [training notebook](https://huggingface.co/lvwerra/distilbert-imdb/blob/0fc02cd68445b599a9cb2da2368050e7fb31d29a/distilbert-imdb-training.ipynb) loads IMDb, fine-tunes on its official `train` split, and evaluates on its official `test` split. Our final classifier uses those same named splits. The upstream notebook does not pin the historical dataset revision, so exact byte identity across the two downloads cannot be guaranteed. The transformer also has a different initialization, tokenizer, training algorithm, and training history.
 
-The dataset card lists its license as `other`. Consult the [dataset page](https://huggingface.co/datasets/stanfordnlp/imdb) and [Stanford source](https://ai.stanford.edu/~amaas/data/sentiment/) before redistribution or a new use. The transformer repository declares Apache-2.0. Runtime downloads are kept out of Git.
+The dataset card lists its license as `other`. Consult the [dataset page](https://huggingface.co/datasets/stanfordnlp/imdb) and [Stanford source](https://ai.stanford.edu/~amaas/data/sentiment/) before redistribution or a new use. The transformer repository declares Apache-2.0. The original checkpoint download is kept out of Git; the compressed serving export is included.
 
 ## What the comparison means
 
@@ -84,7 +99,9 @@ models/                 Saved classical model and model metadata
 notebooks/              Reproducible experiment notebook
 reports/                Actual metrics, plots, logs, and screenshots
 training/               Training and evaluation entry points
-requirements.txt        Python runtime dependencies
+requirements.txt        Small CPU serving dependencies
+requirements-training.txt Training, evaluation and ONNX export dependencies
+requirements-dev.txt    Serving dependencies and API test client
 ```
 
 ## Methodology and evidence

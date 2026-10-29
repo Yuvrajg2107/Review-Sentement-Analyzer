@@ -1,0 +1,16 @@
+{
+  "source": {
+    "id": "lvwerra/distilbert-imdb",
+    "revision": "0fc02cd68445b599a9cb2da2368050e7fb31d29a"
+  },
+  "format": "ONNX: FP16 embedding storage, dynamic per-channel UINT8 MatMul weights, FP32 compute",
+  "sha256": "e0d9d67a6bb2efa6ebc040fdf7bedbc0d2f366f22588cb09476ec55e9cf89db6",
+  "bytes": 91430823,
+  "sample_check": {
+    "count": 105,
+    "label_agreements": 104,
+    "max_probability_difference": 0.18306075036525726,
+    "mean_probability_difference": 0.010556481035781048
+  },
+  "benchmark_note": "reports/metrics.json measures the original PyTorch checkpoint, not this compressed export."
+}

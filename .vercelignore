@@ -1,0 +1,16 @@
+.git/
+.venv/
+.hf_cache/
+.tmp/
+__pycache__/
+**/__pycache__/
+models/transformer/
+data/
+docs/
+notebooks/
+training/
+tests/
+reports/screenshots/
+reports/archive/
+reports/*.npy
+reports/*.npz
