@@ -1,0 +1,40 @@
+{
+  "algorithm": "SHA-256",
+  "files": [
+    {
+      "path": "models/baseline.joblib",
+      "bytes": 2958780,
+      "sha256": "01c5109abd444addf6b9acb5bc40b312efc12de0d2a5a2ab7e3b02efa698a4a9"
+    },
+    {
+      "path": "models/transformer/model.safetensors",
+      "bytes": 267832560,
+      "sha256": "0f88e1e63af96a98a70a8803fad4c4d7844b4029956829b82c35256dfc6cc247"
+    },
+    {
+      "path": "models/transformer/config.json",
+      "bytes": 715,
+      "sha256": "36972ac9c00f1609f1ac48030bedc72de2862c4e2edb5afdc5b44576776da1ce"
+    },
+    {
+      "path": "models/transformer/tokenizer.json",
+      "bytes": 711494,
+      "sha256": "435667fab0c06c165b1283ecb422497c37124f2d6a35b2ac73dc876332fc9518"
+    },
+    {
+      "path": "reports/metrics.json",
+      "bytes": 5713,
+      "sha256": "1ecb15cc94e2e9ef2de56110777a036f58000ba7ede15a4d935b46a31a7e833f"
+    },
+    {
+      "path": "reports/predictions.npz",
+      "bytes": 268679,
+      "sha256": "8ebc5d2139687ea356089facb4dbc8723112a7f8fb153fe9515435e55de529c6"
+    },
+    {
+      "path": "reports/feature_weights.json",
+      "bytes": 3875,
+      "sha256": "181a8fa268134fbc37f48b14a0a57fdf4896996095d98f6126d5d90b8d829fc0"
+    }
+  ]
+}

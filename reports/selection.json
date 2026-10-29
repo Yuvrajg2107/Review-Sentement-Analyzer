@@ -1,0 +1,124 @@
+{
+  "candidates": [
+    {
+      "features": "word",
+      "C": 1,
+      "fit_seconds": 45.965,
+      "accuracy": 0.8972,
+      "precision": 0.8918705603788477,
+      "recall": 0.904,
+      "f1": 0.8978943186332936,
+      "confusion_matrix": [
+        [
+          2226,
+          274
+        ],
+        [
+          240,
+          2260
+        ]
+      ],
+      "log_loss": 0.32757459416207424
+    },
+    {
+      "features": "word",
+      "C": 4,
+      "fit_seconds": 36.485,
+      "accuracy": 0.9068,
+      "precision": 0.9016587677725119,
+      "recall": 0.9132,
+      "f1": 0.9073926868044515,
+      "confusion_matrix": [
+        [
+          2251,
+          249
+        ],
+        [
+          217,
+          2283
+        ]
+      ],
+      "log_loss": 0.25728486421106544
+    },
+    {
+      "features": "word",
+      "C": 10,
+      "fit_seconds": 39.025,
+      "accuracy": 0.9084,
+      "precision": 0.9035573122529644,
+      "recall": 0.9144,
+      "f1": 0.9089463220675944,
+      "confusion_matrix": [
+        [
+          2256,
+          244
+        ],
+        [
+          214,
+          2286
+        ]
+      ],
+      "log_loss": 0.23282607721885815
+    },
+    {
+      "features": "word_char",
+      "C": 4,
+      "fit_seconds": 152.662,
+      "accuracy": 0.9094,
+      "precision": 0.9031114612051989,
+      "recall": 0.9172,
+      "f1": 0.9101012105576504,
+      "confusion_matrix": [
+        [
+          2254,
+          246
+        ],
+        [
+          207,
+          2293
+        ]
+      ],
+      "log_loss": 0.24205596602792084
+    },
+    {
+      "features": "word_char",
+      "C": 10,
+      "fit_seconds": 174.319,
+      "accuracy": 0.9102,
+      "precision": 0.9051758198340577,
+      "recall": 0.9164,
+      "f1": 0.9107533293579805,
+      "confusion_matrix": [
+        [
+          2260,
+          240
+        ],
+        [
+          209,
+          2291
+        ]
+      ],
+      "log_loss": 0.22278413061170685
+    }
+  ],
+  "selected": {
+    "features": "word_char",
+    "C": 10,
+    "fit_seconds": 174.319,
+    "accuracy": 0.9102,
+    "precision": 0.9051758198340577,
+    "recall": 0.9164,
+    "f1": 0.9107533293579805,
+    "confusion_matrix": [
+      [
+        2260,
+        240
+      ],
+      [
+        209,
+        2291
+      ]
+    ],
+    "log_loss": 0.22278413061170685
+  }
+}

@@ -1,0 +1,198 @@
+{
+  "generated_at": "2026-10-29T09:45:52.700030+00:00",
+  "dataset": {
+    "id": "stanfordnlp/imdb",
+    "revision": "e6281661ce1c48d982bc483cf8a173c1bbeb5d31",
+    "train_count": 25000,
+    "test_count": 25000,
+    "validation_count": 5000,
+    "labels": [
+      "negative",
+      "positive"
+    ],
+    "test_fingerprint": "41977005d781de1c"
+  },
+  "models": [
+    {
+      "id": "baseline",
+      "name": "TF-IDF + Logistic Regression",
+      "accuracy": 0.90744,
+      "precision": 0.9088136137421737,
+      "recall": 0.90576,
+      "f1": 0.907284237519032,
+      "confusion_matrix": [
+        [
+          11364,
+          1136
+        ],
+        [
+          1178,
+          11322
+        ]
+      ],
+      "log_loss": 0.23419751090172417
+    },
+    {
+      "id": "transformer",
+      "name": "DistilBERT IMDb",
+      "accuracy": 0.928,
+      "precision": 0.9295808575558053,
+      "recall": 0.92616,
+      "f1": 0.9278672757874489,
+      "confusion_matrix": [
+        [
+          11623,
+          877
+        ],
+        [
+          923,
+          11577
+        ]
+      ],
+      "log_loss": 0.19033407968908017
+    }
+  ],
+  "training": {
+    "seed": 42,
+    "candidates": [
+      {
+        "features": "word",
+        "C": 1,
+        "fit_seconds": 45.965,
+        "accuracy": 0.8972,
+        "precision": 0.8918705603788477,
+        "recall": 0.904,
+        "f1": 0.8978943186332936,
+        "confusion_matrix": [
+          [
+            2226,
+            274
+          ],
+          [
+            240,
+            2260
+          ]
+        ],
+        "log_loss": 0.32757459416207424
+      },
+      {
+        "features": "word",
+        "C": 4,
+        "fit_seconds": 36.485,
+        "accuracy": 0.9068,
+        "precision": 0.9016587677725119,
+        "recall": 0.9132,
+        "f1": 0.9073926868044515,
+        "confusion_matrix": [
+          [
+            2251,
+            249
+          ],
+          [
+            217,
+            2283
+          ]
+        ],
+        "log_loss": 0.25728486421106544
+      },
+      {
+        "features": "word",
+        "C": 10,
+        "fit_seconds": 39.025,
+        "accuracy": 0.9084,
+        "precision": 0.9035573122529644,
+        "recall": 0.9144,
+        "f1": 0.9089463220675944,
+        "confusion_matrix": [
+          [
+            2256,
+            244
+          ],
+          [
+            214,
+            2286
+          ]
+        ],
+        "log_loss": 0.23282607721885815
+      },
+      {
+        "features": "word_char",
+        "C": 4,
+        "fit_seconds": 152.662,
+        "accuracy": 0.9094,
+        "precision": 0.9031114612051989,
+        "recall": 0.9172,
+        "f1": 0.9101012105576504,
+        "confusion_matrix": [
+          [
+            2254,
+            246
+          ],
+          [
+            207,
+            2293
+          ]
+        ],
+        "log_loss": 0.24205596602792084
+      },
+      {
+        "features": "word_char",
+        "C": 10,
+        "fit_seconds": 174.319,
+        "accuracy": 0.9102,
+        "precision": 0.9051758198340577,
+        "recall": 0.9164,
+        "f1": 0.9107533293579805,
+        "confusion_matrix": [
+          [
+            2260,
+            240
+          ],
+          [
+            209,
+            2291
+          ]
+        ],
+        "log_loss": 0.22278413061170685
+      }
+    ],
+    "selected": {
+      "features": "word_char",
+      "C": 10,
+      "fit_seconds": 174.319,
+      "accuracy": 0.9102,
+      "precision": 0.9051758198340577,
+      "recall": 0.9164,
+      "f1": 0.9107533293579805,
+      "confusion_matrix": [
+        [
+          2260,
+          240
+        ],
+        [
+          209,
+          2291
+        ]
+      ],
+      "log_loss": 0.22278413061170685
+    },
+    "refit_train_count": 25000,
+    "positive_label": 1,
+    "threshold": 0.5,
+    "transformer_id": "lvwerra/distilbert-imdb",
+    "transformer_revision": "0fc02cd68445b599a9cb2da2368050e7fb31d29a",
+    "transformer_max_length": 512,
+    "transformer_batch_size": 4,
+    "transformer_dtype": "float16 on CUDA; float32 on CPU; float32 softmax",
+    "transformer_device": "NVIDIA GeForce RTX 3050 Laptop GPU",
+    "transformer_inference_seconds": 125.641,
+    "notes": [
+      "Hyperparameters selected by positive-class F1 on stratified validation from official training data only.",
+      "Final baseline refitted on all 25000 labeled training rows. Both final models evaluated on the same 25000 official test rows.",
+      "The pinned upstream training notebook uses load_dataset(\"imdb\"), trains on ds[\"train\"] for one epoch and evaluates on ds[\"test\"]. Both use the same named official train/test splits; the historical upstream dataset revision was not pinned, so byte-identical training data cannot be independently guaranteed.",
+      "The upstream author evaluated on the official test split during training reporting. This is an established benchmark comparison, not a fresh external blind test. The notebook shows no test gradient updates or test-based early stopping.",
+      "Confidence is uncalibrated model probability, not a guarantee of correctness. Positive-class binary precision, recall and F1 are reported.",
+      "No stopword removal preserves negation. Sublinear TF reduces repeated-word dominance. Word bigrams preserve short phrases; char features, if selected, add spelling and morphology evidence. Feature branch weights are fixed heuristic choices; candidate feature types and C are selected on validation. No individual design choice is proven beneficial without a matched ablation."
+    ]
+  }
+}

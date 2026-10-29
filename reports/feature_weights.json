@@ -1,0 +1,175 @@
+{
+  "negative": [
+    {
+      "feature": "word__worst",
+      "coefficient": -10.357273024840675
+    },
+    {
+      "feature": "word__bad",
+      "coefficient": -9.917447942036258
+    },
+    {
+      "feature": "word__awful",
+      "coefficient": -8.375485146617146
+    },
+    {
+      "feature": "word__the worst",
+      "coefficient": -8.181237628291626
+    },
+    {
+      "feature": "word__boring",
+      "coefficient": -7.736878639372143
+    },
+    {
+      "feature": "word__waste",
+      "coefficient": -7.496431931533661
+    },
+    {
+      "feature": "word__poor",
+      "coefficient": -6.810485736883515
+    },
+    {
+      "feature": "word__no",
+      "coefficient": -6.028914628211217
+    },
+    {
+      "feature": "word__worse",
+      "coefficient": -5.90237555805411
+    },
+    {
+      "feature": "word__dull",
+      "coefficient": -5.900154295989503
+    },
+    {
+      "feature": "word__poorly",
+      "coefficient": -5.795750133496712
+    },
+    {
+      "feature": "word__nothing",
+      "coefficient": -5.701688899233674
+    },
+    {
+      "feature": "word__mess",
+      "coefficient": -5.622057252480304
+    },
+    {
+      "feature": "word__at all",
+      "coefficient": -5.4339190983139
+    },
+    {
+      "feature": "word__not worth",
+      "coefficient": -5.335432963363237
+    },
+    {
+      "feature": "word__terrible",
+      "coefficient": -5.248812410368152
+    },
+    {
+      "feature": "word__lacks",
+      "coefficient": -5.152488736487207
+    },
+    {
+      "feature": "word__oh",
+      "coefficient": -5.029572535099813
+    },
+    {
+      "feature": "word__waste of",
+      "coefficient": -4.928548965719462
+    },
+    {
+      "feature": "word__fails",
+      "coefficient": -4.8144395208582855
+    }
+  ],
+  "positive": [
+    {
+      "feature": "word__great",
+      "coefficient": 8.128561642495535
+    },
+    {
+      "feature": "word__excellent",
+      "coefficient": 6.52912137260422
+    },
+    {
+      "feature": "word__perfect",
+      "coefficient": 5.905887860593019
+    },
+    {
+      "feature": "word__fun",
+      "coefficient": 5.64497376373512
+    },
+    {
+      "feature": "word__the best",
+      "coefficient": 5.414614927704292
+    },
+    {
+      "feature": "word__best",
+      "coefficient": 5.190243205248925
+    },
+    {
+      "feature": "word__today",
+      "coefficient": 4.830268782445874
+    },
+    {
+      "feature": "word__wonderful",
+      "coefficient": 4.799528230209275
+    },
+    {
+      "feature": "word__amazing",
+      "coefficient": 4.784936420569863
+    },
+    {
+      "feature": "word__this is",
+      "coefficient": 4.677806020259298
+    },
+    {
+      "feature": "word__better than",
+      "coefficient": 4.635273768105864
+    },
+    {
+      "feature": "word__bit",
+      "coefficient": 4.613332454612416
+    },
+    {
+      "feature": "word__superb",
+      "coefficient": 4.549565060345809
+    },
+    {
+      "feature": "word__watch it",
+      "coefficient": 4.400645542381758
+    },
+    {
+      "feature": "word__must see",
+      "coefficient": 4.335528733679419
+    },
+    {
+      "feature": "word__loved",
+      "coefficient": 4.318578628006949
+    },
+    {
+      "feature": "word__well worth",
+      "coefficient": 4.280220592986166
+    },
+    {
+      "feature": "word__simple",
+      "coefficient": 4.164414370082815
+    },
+    {
+      "feature": "word__rare",
+      "coefficient": 4.16219030155792
+    },
+    {
+      "feature": "word__both",
+      "coefficient": 4.053295955110786
+    }
+  ],
+  "intercept": [
+    0.06946012100088603
+  ],
+  "classes": [
+    0,
+    1
+  ],
+  "total_features": 160000,
+  "note": "Global fitted coefficients, not causal effects or per-review explanations. Feature vector values also affect each prediction."
+}

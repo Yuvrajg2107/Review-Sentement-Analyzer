@@ -1,0 +1,16 @@
+{
+  "api_tests": {
+    "command": ".venv/Scripts/python.exe -m unittest discover -s tests -v",
+    "passed": 3,
+    "failed": 0,
+    "checks": ["empty, blank and oversized review rejection", "real positive and negative paired predictions with probability sums", "confusion-matrix counts and accuracy consistency"]
+  },
+  "metric_verification": {
+    "command": ".venv/Scripts/python.exe training/verify_artifacts.py",
+    "passed": true,
+    "test_reviews": 25000,
+    "checks": ["shared balanced test labels", "finite bounded probabilities", "independently reconstructed accuracy, precision, recall, F1 and both confusion matrices"]
+  },
+  "browser_verification": "reports/screenshots/browser-verification.json",
+  "visual_review": ["compare-desktop.png", "compare-mobile.png", "reports-desktop.png", "architecture-desktop.png", "evidence-desktop.png", "training-terminal.png"]
+}

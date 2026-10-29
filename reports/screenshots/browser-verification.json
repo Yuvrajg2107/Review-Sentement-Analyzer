@@ -1,0 +1,13 @@
+{
+  "url": "http://127.0.0.1:8000",
+  "checks": [
+    "real positive paired inference",
+    "editing clears stale outputs",
+    "real negative paired inference",
+    "two measured score rows and confusion matrices",
+    "completed actual log and captured log screenshot",
+    "all four tabs at desktop/tablet/mobile without document overflow"
+  ],
+  "errors": [],
+  "passed": true
+}
